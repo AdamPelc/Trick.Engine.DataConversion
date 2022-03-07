@@ -1,4 +1,4 @@
-use data_conversion::services::convert::hex::convert_to_hex;
+use data_conversion::services::convert::to_hex::convert_to_hex;
 use crate::cli::parser::{ConvertCli, CommandsCli, ConversionType, CliParser};
 
 pub fn run(cli: &CliParser) {
