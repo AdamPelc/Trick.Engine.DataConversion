@@ -17,6 +17,7 @@ pub enum CommandsCli {
 #[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ArgEnum)]
 pub enum ConversionType {
     ToHex,
+    HexToString,
 }
 
 #[derive(Parser)]

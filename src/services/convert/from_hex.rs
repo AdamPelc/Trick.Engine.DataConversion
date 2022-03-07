@@ -6,7 +6,7 @@ pub enum ConvertError {
     ToUtf8,
 }
 
-trait FromHex {
+pub trait FromHex {
     fn hex_to_string(&self) -> Result<String, ConvertError>;
 }
 

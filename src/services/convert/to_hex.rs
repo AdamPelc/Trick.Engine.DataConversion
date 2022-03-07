@@ -1,26 +1,24 @@
 // Might be useful later: https://stackoverflow.com/a/25265605
 
-use std::ops::Not;
-
-/// Converts the input string to hexadecimal bytes representation in string
-/// separated by the specified delimiter.
-pub fn convert_to_hex(input_data: &str) -> String {
-    if is_input_data_valid(input_data).not() {
-        return String::new();
-    }
-    let mut result = allocate_string(input_data.bytes().len());
-    result.fill_string_from(&mut input_data.bytes());
-
-    result
-}
-
 use std::str::Bytes;
 
-fn is_input_data_valid(input_data: &str) -> bool {
-    if 0 == input_data.bytes().len() {
-        return false;
+pub trait ToHex {
+    fn to_hex(&self) -> String;
+}
+
+impl ToHex for str {
+    /// Converts the input string to hexadecimal bytes representation in string
+    /// separated by the specified delimiter.
+    fn to_hex(&self) -> String {
+        if self.is_empty() {
+            return String::new();
+        }
+
+        let mut result = allocate_string(self.bytes().len());
+        result.fill_from(&mut self.bytes());
+
+        result
     }
-    true
 }
 
 fn allocate_string(input_data_length: usize) -> String {
@@ -37,11 +35,11 @@ fn allocate_string(input_data_length: usize) -> String {
 }
 
 trait Fill {
-    fn fill_string_from(&mut self, byte_iter: &mut Bytes<'_>);
+    fn fill_from(&mut self, byte_iter: &mut Bytes<'_>);
 }
 
 impl Fill for String {
-    fn fill_string_from(&mut self, byte_iter: &mut Bytes<'_>) {
+    fn fill_from(&mut self, byte_iter: &mut Bytes<'_>) {
         for _ in 0..(byte_iter.len() - 1) {
             self.push_str(&format!("{:0>2x} ", byte_iter.next().unwrap()));
         }
@@ -63,7 +61,7 @@ mod test {
                     let (input_data, expected) = $value;
 
                     // Act
-                    let actual = convert_to_hex(input_data);
+                    let actual = input_data.to_hex();
 
                     // Assert
                     assert_eq!(actual, expected)
@@ -94,7 +92,7 @@ mod test {
     #[test]
     fn returned_string_size() {
         // Act
-        let response = convert_to_hex("a");
+        let response = "a".to_hex();
         // Assert
         assert!(response.len() <= response.capacity());
     }
