@@ -56,14 +56,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "data_conversion"
-version = "0.1.0"
-dependencies = [
- "clap",
- "hex",
-]
-
-[[package]]
 name = "hashbrown"
 version = "0.11.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -200,6 +192,14 @@ name = "textwrap"
 version = "0.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b1141d4d61095b28419e22cb0bbf02755f5e54e0526f97f1e3d1d160e60885fb"
+
+[[package]]
+name = "trick-data"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "hex",
+]
 
 [[package]]
 name = "unicode-xid"
